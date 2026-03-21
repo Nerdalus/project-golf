@@ -1,0 +1,18 @@
+{
+  "outputDirectory": "public",
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/contact", "destination": "/contact.html" },
+    { "source": "/how-it-works", "destination": "/how-it-works.html" },
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/terms", "destination": "/terms.html" },
+    { "source": "/faq/:page", "destination": "/faq/:page.html" }
+  ],
+  "crons": [
+    {
+      "path": "/api/check-recalls",
+      "schedule": "0 8 * * *"
+    }
+  ]
+}

@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CarRecall — Free UK Vehicle Recall Alerts</title>
+  <meta name="description" content="Get instant email alerts when a safety recall is issued for your UK vehicle. Free, no account needed. Powered by official DVSA data." />
+  <link rel="canonical" href="https://www.carrecall.app/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <meta property="og:title" content="CarRecall — Free UK Vehicle Recall Alerts" />
+  <meta property="og:description" content="Get instant email alerts when a safety recall is issued for your UK vehicle." />
+  <meta property="og:url" content="https://www.carrecall.app/" />
+  <meta property="og:type" content="website" />
+  <meta name="robots" content="index, follow" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "CarRecall",
+    "url": "https://www.carrecall.app",
+    "description": "Free UK vehicle recall alert service powered by official DVSA data",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }
+  }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #F97316;
+      --orange-dim: #c45a0e;
+      --orange-glow: rgba(249,115,22,0.15);
+      --bg: #0d0d0d;
+      --bg2: #141414;
+      --bg3: #1a1a1a;
+      --border: rgba(255,255,255,0.08);
+      --border-hover: rgba(249,115,22,0.4);
+      --text: #f0f0f0;
+      --muted: #888;
+      --font: 'DM Sans', sans-serif;
+      --mono: 'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(13,13,13,0.92);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--orange);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+    }
+
+    .alert-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--orange-glow);
+      border: 1px solid rgba(249,115,22,0.3);
+      color: var(--orange);
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      margin-bottom: 1.75rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .alert-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--orange);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    h1 span { color: var(--orange); }
+
+    .hero-sub {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+
+    /* FORM */
+    .form-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      transition: border-color 0.3s;
+    }
+
+    .form-card:focus-within {
+      border-color: var(--border-hover);
+    }
+
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    input {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px var(--orange-glow);
+    }
+
+    input::placeholder { color: #444; }
+
+    input[name="registration"] {
+      font-family: var(--mono);
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .btn {
+      width: 100%;
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: var(--font);
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.85rem 1.5rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      letter-spacing: -0.01em;
+    }
+
+    .btn:hover { background: var(--orange-dim); }
+    .btn:active { transform: scale(0.99); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .form-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 0.75rem;
+    }
+
+    /* STATUS MESSAGES */
+    .msg {
+      border-radius: 10px;
+      padding: 0.9rem 1.1rem;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .msg.success {
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.3);
+      color: #4ade80;
+      display: block;
+    }
+
+    .msg.error {
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.3);
+      color: #f87171;
+      display: block;
+    }
+
+    /* TRUST STRIP */
+    .trust-strip {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .trust-item {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.4rem 1rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .trust-item::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--orange);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* HOW IT WORKS */
+    .section {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--orange);
+      margin-bottom: 0.75rem;
+    }
+
+    .section h2 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 2.5rem;
+      color: var(--text);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .step {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .step:hover { border-color: var(--border-hover); }
+
+    .step-num {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--orange);
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
+    .step h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+
+    .step p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* WHAT IS A RECALL */
+    .recall-info {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--orange);
+      border-radius: 12px;
+      padding: 1.5rem 1.75rem;
+      margin-top: 2rem;
+    }
+
+    .recall-info h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .recall-info p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* FAQ PREVIEW */
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .faq-link {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.88rem;
+      transition: border-color 0.2s, color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .faq-link:hover {
+      border-color: var(--border-hover);
+      color: var(--orange);
+    }
+
+    .faq-arrow {
+      color: var(--muted);
+      flex-shrink: 0;
+      font-size: 0.8rem;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: #555;
+    }
+
+    .footer-copy a {
+      color: #555;
+      text-decoration: none;
+    }
+
+    .footer-copy a:hover { color: var(--muted); }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      .hero { padding: 3rem 1.25rem 2.5rem; }
+      .trust-strip { gap: 0.5rem; }
+      .section { padding: 3rem 1.25rem; }
+      footer { padding: 1.5rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">
+    <span class="logo-icon">&#9888;</span>
+    CarRecall
+  </a>
+  <ul class="nav-links">
+    <li><a href="#how-it-works">How it works</a></li>
+    <li><a href="/faq/">FAQ</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="alert-badge">
+      <span class="alert-dot"></span>
+      Powered by official DVSA data
+    </div>
+
+    <h1>Know the moment your car<br>has a <span>safety recall</span></h1>
+
+    <p class="hero-sub">
+      Enter your reg and email below. We'll monitor your vehicle against the official DVSA recall database and alert you the moment a recall is issued — for free.
+    </p>
+
+    <div class="trust-strip">
+      <div class="trust-item">Official DVSA data</div>
+      <div class="trust-item">Completely free</div>
+      <div class="trust-item">No account needed</div>
+      <div class="trust-item">Recall repairs are free by law</div>
+    </div>
+
+    <div class="form-card">
+      <form id="recallForm">
+        <div class="form-row">
+          <div class="input-group">
+            <label for="registration">Vehicle registration</label>
+            <input
+              type="text"
+              id="registration"
+              name="registration"
+              placeholder="e.g. AB12 CDE"
+              maxlength="8"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <label for="email">Email address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+        </div>
+        <button type="submit" class="btn" id="submitBtn">
+          Alert me to recalls
+        </button>
+        <div class="msg" id="statusMsg"></div>
+      </form>
+      <p class="form-note">Free forever. No spam. Unsubscribe any time.</p>
+    </div>
+  </section>
+
+  <section class="section" id="how-it-works">
+    <p class="section-label">How it works</p>
+    <h2>Three steps, zero faff</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Enter your reg</h3>
+        <p>Just your UK registration plate — no V5C or personal details needed.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>We monitor daily</h3>
+        <p>We check your vehicle against the official DVSA recall database every day automatically.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>You get alerted</h3>
+        <p>The moment a recall is issued for your vehicle, we email you with the details and what to do next.</p>
+      </div>
+    </div>
+
+    <div class="recall-info">
+      <h3>What is a vehicle safety recall?</h3>
+      <p>A safety recall is issued when a manufacturer identifies a fault that could put drivers, passengers, or other road users at risk. Recalls are free to fix — the manufacturer must repair your vehicle at no cost. But you only find out if you're told. That's what CarRecall is for.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="section-label">Common questions</p>
+    <h2>FAQ</h2>
+    <div class="faq-grid">
+      <a href="/faq/what-is-a-vehicle-safety-recall.html" class="faq-link">
+        What is a vehicle safety recall?
+        <span class="faq-arrow">→</span>
+      </a>
+      <a href="/faq/is-a-recall-repair-free.html" class="faq-link">
+        Is a recall repair free?
+        <span class="faq-arrow">→</span>
+      </a>
+      <a href="/faq/how-do-i-check-if-my-car-has-a-recall.html" class="faq-link">
+        How do I check if my car has a recall?
+        <span class="faq-arrow">→</span>
+      </a>
+      <a href="/faq/how-long-does-a-recall-repair-take.html" class="faq-link">
+        How long does a recall repair take?
+        <span class="faq-arrow">→</span>
+      </a>
+      <a href="/faq/can-i-drive-my-car-if-it-has-a-recall.html" class="faq-link">
+        Can I drive my car if it has a recall?
+        <span class="faq-arrow">→</span>
+      </a>
+      <a href="/faq/does-dvsa-notify-you-of-recalls.html" class="faq-link">
+        Does the DVSA notify you of recalls?
+        <span class="faq-arrow">→</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <ul class="footer-links">
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/faq/">FAQ</a></li>
+    <li><a href="/privacy.html">Privacy</a></li>
+    <li><a href="/terms.html">Terms</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+  </ul>
+  <p class="footer-copy">
+    &copy; 2026 CarRecall &mdash; a free tool by <a href="https://alphapariah.studio" target="_blank" rel="noopener">Alpha Pariah Studios</a>
+  </p>
+</footer>
+
+<script>
+  const form = document.getElementById('recallForm');
+  const btn = document.getElementById('submitBtn');
+  const msg = document.getElementById('statusMsg');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = 'Checking...';
+    msg.className = 'msg';
+    msg.textContent = '';
+
+    const registration = document.getElementById('registration').value.trim().toUpperCase().replace(/\s/g, '');
+    const email = document.getElementById('email').value.trim();
+
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ registration, email })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        msg.className = 'msg success';
+        msg.textContent = data.message || 'You\'re signed up! Check your email to confirm.';
+        form.reset();
+      } else {
+        msg.className = 'msg error';
+        msg.textContent = data.error || 'Something went wrong. Please try again.';
+      }
+    } catch {
+      msg.className = 'msg error';
+      msg.textContent = 'Could not connect. Please try again.';
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Alert me to recalls';
+  });
+</script>
+
+</body>
+</html>

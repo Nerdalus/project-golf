@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How It Works — CarRecall</title>
+  <meta name="description" content="How CarRecall monitors your UK vehicle for safety recalls and alerts you by email. Free, automatic, powered by official DVSA data.">
+  <link rel="canonical" href="https://www.carrecall.app/how-it-works.html">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --orange: #F97316;
+      --orange-dim: #c45a0e;
+      --orange-glow: rgba(249,115,22,0.15);
+      --bg: #0d0d0d; --bg2: #141414; --bg3: #1a1a1a;
+      --border: rgba(255,255,255,0.08);
+      --border-hover: rgba(249,115,22,0.4);
+      --text: #f0f0f0; --muted: #888; --dim: #555;
+      --font: 'DM Sans', sans-serif;
+      --mono: 'DM Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; -webkit-font-smoothing: antialiased; }
+
+    /* NAV */
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(13,13,13,0.92); backdrop-filter: blur(12px); z-index: 100; }
+    .logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; font-size: 1.1rem; font-weight: 600; color: var(--text); letter-spacing: -0.02em; }
+    .logo-icon { width: 28px; height: 28px; background: var(--orange); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero { max-width: 720px; margin: 0 auto; padding: 5rem 2rem 3rem; text-align: center; }
+    .page-tag { font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--orange); margin-bottom: 1rem; display: block; }
+    h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 1rem; }
+    h1 span { color: var(--orange); }
+    .hero-sub { color: var(--muted); font-size: 1.05rem; max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+    /* STEPS */
+    .steps-section { max-width: 720px; margin: 0 auto; padding: 4rem 2rem; }
+
+    .step-block { display: grid; grid-template-columns: 56px 1fr; gap: 0 1.5rem; margin-bottom: 1rem; position: relative; }
+    .step-block:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 27px;
+      top: 56px;
+      bottom: -1rem;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .step-num-col { display: flex; flex-direction: column; align-items: center; }
+    .step-circle {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--orange);
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+
+    .step-content {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      transition: border-color 0.2s;
+    }
+    .step-content:hover { border-color: var(--border-hover); }
+
+    .step-content h2 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text); }
+    .step-content p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin: 0; }
+
+    .step-detail {
+      background: var(--bg3);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-top: 0.75rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      border-left: 2px solid var(--orange);
+    }
+
+    /* DVSA SECTION */
+    .dvsa-section { max-width: 720px; margin: 0 auto; padding: 0 2rem 4rem; }
+    .dvsa-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+    }
+    .dvsa-card h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
+    .dvsa-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 0.75rem; }
+    .dvsa-card p:last-child { margin-bottom: 0; }
+    .dvsa-card a { color: var(--orange); text-decoration: none; }
+    .dvsa-card a:hover { text-decoration: underline; }
+
+    /* FAQ TEASER */
+    .faq-section { max-width: 720px; margin: 0 auto; padding: 0 2rem 4rem; border-top: 1px solid var(--border); padding-top: 4rem; }
+    .section-label { font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--orange); margin-bottom: 0.75rem; }
+    .faq-section h2 { font-size: 1.6rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .faq-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+    .faq-link { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.25rem; text-decoration: none; color: var(--text); font-size: 0.88rem; transition: border-color 0.2s, color 0.2s; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+    .faq-link:hover { border-color: var(--border-hover); color: var(--orange); }
+    .faq-arrow { color: var(--muted); flex-shrink: 0; font-size: 0.8rem; }
+
+    /* CTA */
+    .cta-section { max-width: 720px; margin: 0 auto; padding: 0 2rem 6rem; text-align: center; }
+    .cta-card { background: var(--bg2); border: 1px solid var(--border-hover); border-radius: 16px; padding: 3rem 2rem; }
+    .cta-card h2 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+    .cta-card p { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.5rem; }
+    .btn { display: inline-block; background: var(--orange); color: #fff; border: none; border-radius: 10px; font-family: var(--font); font-size: 1rem; font-weight: 600; padding: 0.85rem 2rem; cursor: pointer; transition: background 0.2s; text-decoration: none; letter-spacing: -0.01em; }
+    .btn:hover { background: var(--orange-dim); }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; margin-top: auto; }
+    .footer-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem; list-style: none; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: 0.78rem; color: var(--dim); }
+    .footer-copy a { color: var(--dim); text-decoration: none; }
+    .footer-copy a:hover { color: var(--muted); }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      .hero { padding: 3rem 1.25rem 2rem; }
+      .steps-section, .dvsa-section, .faq-section, .cta-section { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .step-block { grid-template-columns: 44px 1fr; gap: 0 1rem; }
+      .step-circle { width: 44px; height: 44px; font-size: 0.75rem; }
+      .step-block::before { left: 21px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">
+    <span class="logo-icon">&#9888;</span>
+    CarRecall
+  </a>
+  <ul class="nav-links">
+    <li><a href="/how-it-works.html" style="color:var(--text)">How it works</a></li>
+    <li><a href="/faq/">FAQ</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section class="hero">
+    <span class="page-tag">How it works</span>
+    <h1>Simple, automatic,<br><span>always watching</span></h1>
+    <p class="hero-sub">CarRecall runs in the background so you don't have to think about it. Here's exactly what happens from the moment you sign up.</p>
+  </section>
+
+  <section class="steps-section">
+
+    <div class="step-block">
+      <div class="step-num-col">
+        <div class="step-circle">01</div>
+      </div>
+      <div class="step-content">
+        <h2>You enter your reg and email</h2>
+        <p>Just your UK registration plate and an email address. No account, no password, no V5C needed. We look up your vehicle against the official DVSA recall database the moment you submit.</p>
+        <div class="step-detail">We check immediately — if your vehicle already has an open recall, we tell you straight away in the confirmation email.</div>
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-num-col">
+        <div class="step-circle">02</div>
+      </div>
+      <div class="step-content">
+        <h2>We confirm your subscription</h2>
+        <p>You'll receive a confirmation email within a few minutes showing your vehicle details and its current recall status. If there's already a recall open — we flag it. If the vehicle is clear — we tell you that too.</p>
+        <div class="step-detail">The confirmation email also includes your unsubscribe link. You're in control at all times.</div>
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-num-col">
+        <div class="step-circle">03</div>
+      </div>
+      <div class="step-content">
+        <h2>We monitor your vehicle daily</h2>
+        <p>Every day, CarRecall automatically checks your vehicle registration against the DVSA recall database. We compare what's live today against what was there yesterday. If nothing has changed, we do nothing — no spam, no noise.</p>
+        <div class="step-detail">Recalls can be issued at any time by any manufacturer. Daily checks mean you'll know within 24 hours.</div>
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-num-col">
+        <div class="step-circle">04</div>
+      </div>
+      <div class="step-content">
+        <h2>You get alerted the moment a recall appears</h2>
+        <p>If a new recall is issued for your vehicle, we email you immediately with the recall reference, a plain-English description of the fault, and what to do next. No jargon, no delay.</p>
+        <div class="step-detail">Recall repairs are free by law — the manufacturer must fix your vehicle at no cost to you. We link you straight to the official DVSA recall checker for full details.</div>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="dvsa-section">
+    <div class="dvsa-card">
+      <h2>Powered by official DVSA data</h2>
+      <p>CarRecall uses the official DVSA (Driver and Vehicle Standards Agency) vehicle recalls API — the same data source used by the government's own recall checker at <a href="https://www.gov.uk/check-vehicle-recall" target="_blank" rel="noopener">gov.uk/check-vehicle-recall</a>.</p>
+      <p>This means every recall we alert you to is official, verified, and issued by the manufacturer. We don't scrape third-party sources or guess — if DVSA has it, we have it.</p>
+      <p>CarRecall is an independent service and is not affiliated with DVSA, DVLA, or any vehicle manufacturer.</p>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <p class="section-label">Common questions</p>
+    <h2>You might be wondering</h2>
+    <div class="faq-grid">
+      <a href="/faq/what-is-a-vehicle-safety-recall.html" class="faq-link">
+        What is a vehicle safety recall?
+        <span class="faq-arrow">→</span>
+      </a>
+      <a href="/faq/is-a-recall-repair-free.html" class="faq-link">
+        Is a recall repair free?
+        <span class="faq-arrow">→</span>
+      </a>
+      <a href="/faq/how-do-i-check-if-my-car-has-a-recall.html" class="faq-link">
+        How do I check if my car has a recall?
+        <span class="faq-arrow">→</span>
+      </a>
+      <a href="/faq/can-i-drive-my-car-if-it-has-a-recall.html" class="faq-link">
+        Can I drive my car if it has a recall?
+        <span class="faq-arrow">→</span>
+      </a>
+      <a href="/faq/does-dvsa-notify-you-of-recalls.html" class="faq-link">
+        Does the DVSA notify you of recalls?
+        <span class="faq-arrow">→</span>
+      </a>
+      <a href="/faq/how-long-does-a-recall-repair-take.html" class="faq-link">
+        How long does a recall repair take?
+        <span class="faq-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="cta-card">
+      <h2>Ready to set up your alert?</h2>
+      <p>Takes 30 seconds. Free forever. No account needed.</p>
+      <a href="/" class="btn">Alert me to recalls</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <ul class="footer-links">
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/how-it-works.html">How it works</a></li>
+    <li><a href="/faq/">FAQ</a></li>
+    <li><a href="/privacy.html">Privacy</a></li>
+    <li><a href="/terms.html">Terms</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+  </ul>
+  <p class="footer-copy">&copy; 2026 CarRecall &mdash; a free tool by <a href="https://alphapariah.studio" target="_blank" rel="noopener">Alpha Pariah Studios</a></p>
+</footer>
+
+</body>
+</html>
