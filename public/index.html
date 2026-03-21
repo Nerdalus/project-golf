@@ -88,7 +88,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
     }
 
     .nav-links {
@@ -473,7 +472,12 @@
 
 <nav>
   <a href="/" class="logo">
-    <span class="logo-icon">&#9888;</span>
+    <span class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+        <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+    </span>
     CarRecall
   </a>
   <ul class="nav-links">
@@ -569,27 +573,27 @@
     <p class="section-label">Common questions</p>
     <h2>FAQ</h2>
     <div class="faq-grid">
-      <a href="/faq/what-is-a-vehicle-safety-recall.html" class="faq-link">
+      <a href="/faq/what-is-a-vehicle-safety-recall" class="faq-link">
         What is a vehicle safety recall?
         <span class="faq-arrow">→</span>
       </a>
-      <a href="/faq/is-a-recall-repair-free.html" class="faq-link">
+      <a href="/faq/is-a-recall-repair-free" class="faq-link">
         Is a recall repair free?
         <span class="faq-arrow">→</span>
       </a>
-      <a href="/faq/how-do-i-check-if-my-car-has-a-recall.html" class="faq-link">
+      <a href="/faq/how-do-i-check-if-my-car-has-a-recall" class="faq-link">
         How do I check if my car has a recall?
         <span class="faq-arrow">→</span>
       </a>
-      <a href="/faq/how-long-does-a-recall-repair-take.html" class="faq-link">
+      <a href="/faq/how-long-does-a-recall-repair-take" class="faq-link">
         How long does a recall repair take?
         <span class="faq-arrow">→</span>
       </a>
-      <a href="/faq/can-i-drive-my-car-if-it-has-a-recall.html" class="faq-link">
+      <a href="/faq/can-i-drive-my-car-if-it-has-a-recall" class="faq-link">
         Can I drive my car if it has a recall?
         <span class="faq-arrow">→</span>
       </a>
-      <a href="/faq/does-dvsa-notify-you-of-recalls.html" class="faq-link">
+      <a href="/faq/does-the-dvsa-notify-you-of-recalls" class="faq-link">
         Does the DVSA notify you of recalls?
         <span class="faq-arrow">→</span>
       </a>
@@ -614,6 +618,11 @@
   const form = document.getElementById('recallForm');
   const btn = document.getElementById('submitBtn');
   const msg = document.getElementById('statusMsg');
+
+  // Pre-fill from FAQ CTA ?reg=&email= params
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('reg')) document.getElementById('registration').value = params.get('reg').toUpperCase();
+  if (params.get('email')) document.getElementById('email').value = params.get('email');
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
