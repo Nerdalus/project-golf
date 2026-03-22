@@ -72,7 +72,7 @@
     .logo {
       display: flex;
       align-items: center;
-      gap: 0rem;
+      gap: 0.5rem;
       text-decoration: none;
       font-size: 1.1rem;
       font-weight: 600;
@@ -477,10 +477,11 @@
         <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
         <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
       </svg>
-    </span>Car<span style="color: var(--orange);">Recall</span>
+    </span>
+    <span style="color: var(--text);">Car<span style="color: var(--orange);">Recall</span></span>
   </a>
   <ul class="nav-links">
-    <li><a href="how-it-works.html">How it works</a></li>
+    <li><a href="#how-it-works">How it works</a></li>
     <li><a href="/faq/">FAQ</a></li>
     <li><a href="/about.html">About</a></li>
   </ul>
@@ -618,7 +619,6 @@
   const btn = document.getElementById('submitBtn');
   const msg = document.getElementById('statusMsg');
 
-  // Pre-fill from FAQ CTA ?reg=&email= params
   const params = new URLSearchParams(window.location.search);
   if (params.get('reg')) document.getElementById('registration').value = params.get('reg').toUpperCase();
   if (params.get('email')) document.getElementById('email').value = params.get('email');
