@@ -27,9 +27,9 @@
       --radius: 12px; --radius-sm: 8px;
     }
     body { font-family: var(--font); background: var(--black); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; -webkit-font-smoothing: antialiased; }
-    nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; border-bottom: 1px solid var(--border); }
-    .logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
-    .logo-icon { width: 32px; height: 32px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(13,13,13,0.92); backdrop-filter: blur(12px); z-index: 100; }
+    .logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; font-size: 1.1rem; font-weight: 600; color: var(--text); letter-spacing: -0.02em; }
+    .logo-icon { width: 28px; height: 28px; background: var(--orange); border-radius: 7px; display: flex; align-items: center; justify-content: center; }
     .logo-icon svg { width: 18px; height: 18px; }
     .logo-text { font-size: 18px; font-weight: 600; color: var(--text); letter-spacing: -0.02em; }
     .logo-text span { color: var(--orange); }
