@@ -1,5 +1,18 @@
 {
   "outputDirectory": "public",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "destination": "https://www.carrecall.app/:path*",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": "carrecall.app"
+        }
+      ]
+    }
+  ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/about", "destination": "/about.html" },
